@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu Mô Hình Dinh Độc Lập - 9A6 (Final Fix - Có Nút Quay Lại)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; 
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.8s ease-in-out; 
+            color: #1F2937;
+            position: relative; 
+            overflow-y: auto; 
+            padding-top: 2rem; 
+            padding-bottom: 7rem; /* Đảm bảo khoảng trống cho nút Fixed */
+        }
+        .slides-container {
+            display: flex;
+            width: 400vw; 
+            transition: transform 0.8s ease-in-out;
+        }
+
+        /* --- Custom Styles for Patriotism Theme on Slide 1 --- */
+        #slide1 {
+            background: linear-gradient(135deg, #B91C1C 0%, #DC2626 100%);
+            color: white;
+        }
+        .flag-star {
+            color: #FBBF24;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+            display: inline-block;
+            animation: pulse-star 3s infinite;
+        }
+        @keyframes pulse-star {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+        }
+        /* --- End Custom Styles --- */
+
+        /* Nút Chuyển Tiếp (Next Button) - Góc dưới bên phải (CỐ ĐỊNH) */
+        .next-button {
+            position: fixed; 
+            bottom: 1.5rem; 
+            right: 1.5rem; 
+            
+            padding: 0.75rem 1.5rem; 
+            font-size: 0.875rem; 
+            border-radius: 9999px;
+            background-color: #10B981; /* Green */
+            color: white;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.25);
+            z-index: 100; 
+            display: none; 
+        }
+        .next-button:hover {
+            background-color: #059669; 
+            transform: scale(1.05);
+        }
+
+        /* Nút Quay Lại (Previous Button) - Góc dưới bên trái (CỐ ĐỊNH) */
+        .prev-button {
+            position: fixed; 
+            bottom: 1.5rem; 
+            left: 1.5rem; 
+            
+            padding: 0.75rem 1.5rem; 
+            font-size: 0.875rem; 
+            border-radius: 9999px;
+            background-color: #F59E0B; /* Amber */
+            color: white;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.25);
+            z-index: 100; 
+            display: none; 
+        }
+        .prev-button:hover {
+            background-color: #D97706; 
+            transform: scale(1.05);
+        }
+        
+        /* Loại bỏ animation bounce mặc định của bạn để dùng fixed buttons */
+        /* @keyframes bounce { ... } đã bị loại bỏ */
+
+        /* Custom styling cho các khối thông tin */
+        .info-box {
+            border-left: 5px solid #F97316; 
+            background-color: #FEF3C7; 
+        }
+        .material-card {
+            background-color: #F3F4F6; 
+            border: 2px solid #6B7280; 
+            transition: all 0.3s;
+        }
+        .material-card:hover {
+            background-color: #DBEAFE; 
+            border-color: #3B82F6; 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="slides-container" id="slidesContainer">
+        
+        <div id="slide1" class="slide">
+            <div class="text-center p-8 max-w-4xl mx-auto">
+                <h1 class="text-7xl font-extrabold mb-4 text-yellow-400 text-glow">
+                    <span class="flag-star">★</span> 
+                    DINH ĐỘC LẬP 
+                    <span class="flag-star">★</span>
+                </h1>
+                <h2 class="text-3xl font-semibold mb-8 text-red-100">
+                    Dự Án Lịch Sử & Kiến Trúc của Lớp 9A6
+                </h2>
+                <p class="text-xl text-red-100 leading-relaxed italic border-y border-red-200 py-4 mb-8">
+                    Chúng em xin được giới thiệu mô hình tái hiện Dinh Độc Lập - biểu tượng hùng hồn của Độc lập, Hòa bình và Thống nhất đất nước Việt Nam.
+                </p>
+                <div class="mt-10">
+                    <img src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2017/09/1-10.jpg" 
+                            alt="Hình ảnh mô hình Dinh Độc Lập" 
+                            class="rounded-xl shadow-2xl mx-auto ring-4 ring-yellow-400 ring-offset-4 ring-offset-red-700 transition-transform duration-500 hover:scale-[1.03]">
+                </div>
+            </div>
+        </div>
+
+        <div id="slide2" class="slide bg-white">
+            <div class="p-8 max-w-5xl mx-auto">
+                <h1 class="text-5xl font-extrabold text-orange-600 mb-8 text-center">Khám Phá Chi Tiết Mô Hình</h1>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    
+                    <div class="space-y-8">
+                        <div class="info-box p-6 rounded-lg shadow-xl">
+                            <h3 class="text-2xl font-bold text-orange-700 mb-4">📐 Thông Số Mô Hình</h3>
+                            <ul class="text-lg text-gray-800 list-none space-y-2">
+                                <li class="flex items-center">
+                                    <span class="font-semibold w-24">Tỷ Lệ:</span> 1:400 (xấp xĩ)
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="font-semibold w-24">Chiều Dài:</span> 60cm
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="font-semibold w-24">Chiều Rộng:</span> 60cm
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="font-semibold w-24">Chiều Cao:</span> 40cm
+                                </li>
+                                <li class="flex items-center text-sm italic text-gray-500 pt-2">
+                                    (Các thông số này là thông số yêu cầu)
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 bg-gray-100 rounded-lg shadow-xl">
+                            <h3 class="text-2xl font-bold text-gray-700 mb-4"> Vị Trí của Dinh Độc Lập</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                Dinh Độc Lập tọa lạc tại số 135 Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Quận 1, TPHCM - vị trí trung tâm, lịch sử của cả nước.
+                            </p>
+                            <img src="https://dulichlive.com/sai-gon/wp-content/uploads/sites/9/2020/11/Dia-chi-Dinh-Doc-Lap.png" 
+                                alt="Bản đồ vị trí Dinh Độc Lập" 
+                                class="mt-4 rounded-lg w-full shadow-md"
+                                onerror="this.onerror=null;this.src='https://placehold.co/400x200/F0F9FF/333?text=V%E1%BB%8B+Tr%C3%AD+Th%E1%BB%B1c+T%E1%BA%BF'">
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-green-50 rounded-lg shadow-xl h-full">
+                        <h3 class="text-2xl font-bold text-green-700 mb-4">Tinh Thần Dân Tộc & Kiến Trúc</h3>
+                        <div class="text-lg text-gray-800 space-y-4">
+                            <p>
+                                Dinh Độc Lập không chỉ là công trình kiến trúc mà còn là biểu tượng của tinh thần bất khuất, là nơi ghi dấu sự kiện lịch sử vĩ đại: ngày 30/4/1975, đất nước hoàn toàn thống nhất.
+                            </p>
+                            <p>
+                                Công trình do Kiến trúc sư Ngô Viết Thụ thiết kế, kết hợp hài hòa giữa kiến trúc hiện đại và các yếu tố triết lý phương Đông, thể hiện khát vọng xây dựng một đất nước tự cường.
+                            </p>
+                            <p class="text-xl font-semibold text-green-800 italic">
+                                Mô hình này là lời tri ân của chúng em đến lịch sử dân tộc.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide3" class="slide bg-blue-50">
+            <div class="p-8 max-w-6xl mx-auto">
+                <h1 class="text-5xl font-extrabold text-blue-700 mb-12 text-center">⚙️ Vật Liệu Chính Tạo Nên Mô Hình</h1>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    
+                    <div class="material-card p-6 rounded-xl text-center shadow-lg">
+                        <span class="text-4xl block mb-2">📦</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Bìa Cứng/Giấy Mô Hình</h3>
+                        <p class="text-gray-600 text-sm">Cấu trúc khung và nền móng chính.</p>
+                    </div>
+
+                    <div class="material-card p-6 rounded-xl text-center shadow-lg">
+                        <span class="text-4xl block mb-2">🥢</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Que Kem / Tăm Tre</h3>
+                        <p class="text-gray-600 text-sm">Tái tạo chi tiết hàng rào và cột trụ.</p>
+                    </div>
+
+                    <div class="material-card p-6 rounded-xl text-center shadow-lg">
+                        <span class="text-4xl block mb-2">🎨</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Sơn/Màu Acrylic</h3>
+                        <p class="text-gray-600 text-sm">Hoàn thiện màu sắc mặt ngoài công trình.</p>
+                    </div>
+
+                    <div class="material-card p-6 rounded-xl text-center shadow-lg">
+                        <span class="text-4xl block mb-2">💧</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Keo Dán (Sữa, Nến)</h3>
+                        <p class="text-gray-600 text-sm">Liên kết các chi tiết và cố định cấu trúc.</p>
+                    </div>
+
+                    <div class="material-card p-6 rounded-xl text-center shadow-lg">
+                        <span class="text-4xl block mb-2">🌳</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Vật Liệu Xanh</h3>
+                        <p class="text-gray-600 text-sm">Làm cỏ, cây xanh, và tiểu cảnh xung quanh.</p>
+                    </div>
+
+                    <div class="material-card p-6 rounded-xl text-center shadow-lg">
+                        <span class="text-4xl block mb-2">💡</span>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Hệ Thống Đèn LED</h3>
+                        <p class="text-gray-600 text-sm">Tạo hiệu ứng ánh sáng cho mô hình.</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <div id="slide4" class="slide bg-teal-50">
+            <div class="text-center p-8 max-w-4xl mx-auto">
+                <h1 class="text-6xl font-extrabold text-teal-800 mb-4">Trân Trọng Cảm Ơn</h1>
+                <p class="text-3xl font-semibold text-gray-700 mb-12">
+                    Kính gửi Quý Thầy/Cô và các bạn,
+                </p>
+                <p class="text-2xl text-gray-600 leading-relaxed italic p-4 rounded-xl bg-white shadow-lg">
+                    "Chúng em xin chân thành cảm ơn Thầy/Cô và các bạn đã dành thời gian quý báu để lắng nghe và theo dõi bài thuyết trình về mô hình Dinh Độc Lập. 
+                    Mọi ý kiến đóng góp sẽ giúp bài làm của chúng em hoàn thiện hơn."
+                </p>
+                
+                <div class="mt-12 text-2xl font-bold text-teal-600 flex items-center justify-center">
+                    <span class="mr-2 text-3xl">🇻🇳</span> Chúc Thầy/Cô và các bạn một ngày tốt lành! <span class="ml-2 text-3xl">🎉</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <button id="nextSlide1" class="next-button" onclick="nextSlide()">
+        Thông tin chi tiết &nbsp; &rarr;
+    </button>
+    <button id="nextSlide2" class="next-button" onclick="nextSlide()">
+        Tìm hiểu Vật Liệu &nbsp; &rarr;
+    </button>
+    <button id="nextSlide3" class="next-button" onclick="nextSlide()">
+        Kết thúc bài thuyết trình &nbsp; &rarr;
+    </button>
+
+    <button id="prevSlide2" class="prev-button" onclick="prevSlide()">
+        &larr; Quay lại
+    </button>
+    <button id="prevSlide3" class="prev-button" onclick="prevSlide()">
+        &larr; Quay lại
+    </button>
+    <button id="prevSlide4" class="prev-button" onclick="prevSlide()">
+        &larr; Quay lại
+    </button>
+
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 4; 
+        const slidesContainer = document.getElementById('slidesContainer');
+        
+        /**
+         * Hàm chuyển sang slide kế tiếp (Bấm nút Mũi Tên Phải)
+         */
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideView();
+            } else {
+                console.log('Bài thuyết trình kết thúc.');
+                // Đảm bảo nút cuối cùng (nextSlide3) bị ẩn
+                document.getElementById('nextSlide3').style.display = 'none'; 
+            }
+        }
+        
+        /**
+         * Hàm quay lại slide trước đó (Bấm nút Mũi Tên Trái)
+         */
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideView();
+            }
+        }
+
+        /**
+         * Cập nhật vị trí của slides container, đảm bảo cuộn về đầu slide, và cập nhật nút
+         */
+        function updateSlideView() {
+            const offset = currentSlide * -100;
+            slidesContainer.style.transform = `translateX(${offset}vw)`;
+            
+            // Cuộn về đầu slide khi chuyển slide mới (đảm bảo nội dung không bị trôi)
+            const currentSlideElement = document.getElementById(`slide${currentSlide + 1}`);
+            if (currentSlideElement) {
+                currentSlideElement.scrollTop = 0; 
+            }
+            
+            // Hiển thị nút tương ứng với slide hiện tại
+            showCurrentButtons();
+        }
+        
+        /**
+         * Chỉ hiển thị các nút điều hướng cần thiết cho slide hiện tại
+         */
+        function showCurrentButtons() {
+            const nextButtonIds = ['nextSlide1', 'nextSlide2', 'nextSlide3']; 
+            const prevButtonIds = ['prevSlide2', 'prevSlide3', 'prevSlide4']; 
+            
+            // Ẩn TẤT CẢ các nút trước
+            nextButtonIds.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.style.display = 'none';
+            });
+            prevButtonIds.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.style.display = 'none';
+            });
+
+
+            // LOGIC HIỂN THỊ:
+            
+            // 1. Hiển thị nút NEXT (cho Slide 1, 2, 3)
+            if (currentSlide < totalSlides - 1) { 
+                const nextId = nextButtonIds[currentSlide];
+                const nextBtn = document.getElementById(nextId);
+                if (nextBtn) nextBtn.style.display = 'block';
+            }
+
+            // 2. Hiển thị nút PREVIOUS (cho Slide 2, 3, 4)
+            if (currentSlide > 0) { 
+                // currentSlide 1 (Slide 2) -> prevButtonIds[0] (prevSlide2)
+                const prevId = prevButtonIds[currentSlide - 1]; 
+                const prevBtn = document.getElementById(prevId);
+                if (prevBtn) prevBtn.style.display = 'block';
+            }
+        }
+
+        // Khởi tạo ban đầu: đảm bảo chỉ nút nextSlide1 hiện ra
+        window.onload = function() {
+            showCurrentButtons();
+        };
+
+    </script>
+</body>
+</html>
